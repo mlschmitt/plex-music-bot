@@ -2,6 +2,7 @@ class PlexMusic():
 	def __init__(self, plex_library):
 		self.library = plex_library
 		self._total_track_count = None
+		self._total_artist_count = None
 
 	# Methods
 
@@ -35,8 +36,17 @@ class PlexMusic():
 
 	@property
 	def total_track_count(self):
-		if not self._total_track_count:
+		if self._total_track_count is None:
 			print('Retrieving total track count...')
 			self._total_track_count = self.library.totalViewSize(libtype='track')
 			print('Retrieving total track count... DONE.')
 		return self._total_track_count
+
+	@property
+	def total_artist_count(self):
+		if self._total_artist_count is None:
+			print('Retrieving total artist count...')
+			self._total_artist_count = self.library.totalViewSize(libtype='artist')
+			print('Retrieving total artist count... DONE.')
+		return self._total_artist_count
+	
