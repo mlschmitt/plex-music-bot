@@ -1,6 +1,6 @@
 # Plex Music Bot
 
-Python scripts for automatically building radio-like music playlists in Plex.
+Python scripts for automatically building radio-like, Daily Mix / Discover style music playlists in Plex.
 
 <img src="plex_music_bot_readme_screenshot.png" align="center" alt="Example Plex Music Bot playlist" width="80%">
 
