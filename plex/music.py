@@ -1,3 +1,6 @@
+from plexapi.exceptions import NotFound
+
+
 class PlexMusic():
 	def __init__(self, plex_library):
 		self.library = plex_library
@@ -28,9 +31,18 @@ class PlexMusic():
 		return self.library.search(sort=sort_value, libtype=media_type, limit=limit)
 
 	def replace_playlist_tracks(self, playlist_title, playlist_songs):
-		target_playlist = self.library.playlist(playlist_title)
-		target_playlist.removeItems(target_playlist.items())
-		target_playlist.addItems(playlist_songs)
+		target_playlist = self.get_playlist(playlist_title)
+		if not target_playlist:
+			self.library.createPlaylist(playlist_title, items=playlist_songs)
+		else:
+			target_playlist.removeItems(target_playlist.items())
+			target_playlist.addItems(playlist_songs)
+
+	def get_playlist(self, playlist_title):
+		try:
+			return self.library.playlist(playlist_title)
+		except NotFound:
+			return None
 
 	# Properties
 

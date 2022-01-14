@@ -13,16 +13,7 @@ Install requirements with pip: `pip install -r requirements.txt`
 ## Example Usage
 
 ```
-from plex_playlist_builder import PlexPlaylistBuilder
-
-username = "USERNAME"
-password = "PASSWORD"
-resource = "plex_server"
-PlexPlaylistBuilder(
-	username=username, password=password, resource=resource
-).build_playlist(
-	playlist_title='Cool Playlist', track_count=300
-)
+python generate.py -u "plex_username" -p "plex_password" -r "plex_server" -t "My Cool Playlist" -c 120
 ```
 
 ## How Does It Work
