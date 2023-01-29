@@ -25,4 +25,4 @@ class PlexConnection():
 		print(f'Connecting to Plex server {self.resource}...')
 		account = MyPlexAccount(self.username, self.password)
 		print(f'Connecting to Plex server {self.resource}... DONE.')
-		return account.resource('littlebuddy').connect()
+		return account.resource(self.resource).connect()
