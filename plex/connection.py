@@ -1,10 +1,12 @@
-from plexapi.myplex import MyPlexAccount
+from plexapi.myplex import MyPlexAccount, PlexServer
 
 class PlexConnection():
-    def __init__(self, username=None, password=None, resource=None):
+    def __init__(self, username=None, password=None, resource=None, server_url=None, token=None):
         self.username = username
         self.password = password
         self.resource = resource
+        self.server_url = server_url
+        self.token = token
         self._server = None
 
     @property
@@ -23,9 +25,11 @@ class PlexConnection():
 
     def _setup_server(self):
         print(f'Connecting to Plex server {self.resource}...')
-        # In plex/connection.py, line 26:
-        two_factor_code = input("Enter your Plex 2FA code: ")
-        account = MyPlexAccount(self.username, self.password, code=two_factor_code)
 
-        print(f'Connecting to Plex server {self.resource}... DONE.')
-        return account.resource(self.resource).connect()
+        # Use token if available, otherwise fall back to 2FA flow
+        if self.token:
+            return PlexServer(f'http://{self.server_url}:32400', token=self.token)
+        else:
+            two_factor_code = input("Enter your Plex 2FA code: ")
+            account = MyPlexAccount(self.username, self.password, code=two_factor_code)
+            return account.resource(self.resource).connect()

@@ -8,9 +8,9 @@ from utils.weighted_picker import WeightedPicker
 
 
 class PlexPlaylistBuilder():
-	def __init__(self, username=None, password=None, resource=None):
+	def __init__(self, username=None, password=None, resource=None, server_url=None, token=None):
 		plex_library = PlexConnection(
-			username=username, password=password, resource=resource
+			username=username, password=password, resource=resource, server_url=server_url, token=token,
 		).music_library
 		self.music_library = PlexMusic(plex_library)
 
