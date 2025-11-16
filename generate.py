@@ -12,6 +12,7 @@ if __name__ == "__main__":
 	parser.add_argument('--resource', '-r', help='Plex server resource name', required=True, type=str)
 	parser.add_argument('--playlist_title', '-t', help='Name of target playlist to update', default='Music Bot', type=str)
 	parser.add_argument('--track_count', '-c', help='Number of tracks to add to playlist', default=50, type=int)
+	parser.add_argument('--exclude_artists', '-ea', help='List of artist names to exclude, comma separated', default='', type=str)
 
 	args = parser.parse_args()
 
@@ -20,8 +21,9 @@ if __name__ == "__main__":
 	PlexPlaylistBuilder(
 	    username=args.username,
 	    password=args.password,
-	    resource=args.resource
+	    resource=args.resource,
+	    exclude_artists=str(args.exclude_artists).strip().split(","),
 	).build_playlist(
 	    playlist_title=args.playlist_title,
-	    track_count=int(args.track_count)
+	    track_count=int(args.track_count),
 	)
